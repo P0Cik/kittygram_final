@@ -37,17 +37,15 @@ jobs:
         python -m pip install --upgrade pip 
         pip install ruff==0.8.0
         pip install -r ./backend/requirements.txt
-        
+      
     - name: Lint with ruff and run django tests
       # Добавляем env-переменные для доступа к БД
       env:
           POSTGRES_USER: kittygram_user
           POSTGRES_PASSWORD: kittygram_password
           POSTGRES_DB: kittygram_db
-        # Сервер БД запущен в Docker, но его порт проброшен на хост
-        # Поэтому подключаемся к 127.0.0.1:5432
-        DB_HOST: 127.0.0.1
-        DB_PORT: 5432
+          DB_HOST: 127.0.0.1
+          DB_PORT: 5432
       run: |
         python -m ruff check backend/
         cd backend/
